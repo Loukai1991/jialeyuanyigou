@@ -4,7 +4,7 @@
     "pages/product/detail",
     "pages/search/search",
     "pages/user/user",
-  
+    "pages/upload/upload",
     "pages/user/dingdan",
     "pages/user/tuihuo",
     "pages/order/pay",
@@ -16,7 +16,7 @@
     "pages/address/user-address/user-address",
     "pages/category/index",     
     "pages/ritual/ritual",   
-    "pages/rituall/rituall", 
+    "pages/qrcode/code",
     "pages/shop_store/shop_store"
 
 

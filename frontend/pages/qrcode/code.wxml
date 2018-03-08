@@ -12,7 +12,7 @@
 	    </view>
     <view class="hh" bindtap="getvou" data-vid="{{item.id}}">
       <view class="hb" wx:if="{{item.point>0}}">积分兑换</view>
-      <view class="hb" wx:else>未使用</view>
+      <view class="hb" wx:else>领取</view>
     </view>
 </view>
           <view class="c">
