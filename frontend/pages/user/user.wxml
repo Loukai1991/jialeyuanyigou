@@ -77,12 +77,12 @@
   </navigator>
 </view>
 
-<view class="qbdd mt110">
+<!-- <view class="qbdd mt110">
    <navigator url="../upload/upload">
     <span class="font_14 c3">上传图片</span>
     <span class="fl_r c9 font_12 l_h20" hover-class="none"> ></span>
   </navigator>
-</view>
+</view> -->
 <view class="qbdd mt110">
   <contact-button>
   </contact-button>
