@@ -2,59 +2,37 @@
 var app = getApp();
 Page({
   data:{
-    vou:[],
+    userinfo: [],
+    Qrcodeimg:[]
   },
-   getvou:function(e){
-    var vid = e.currentTarget.dataset.vid;
-    var uid = app.d.userId;
-    wx.request({
-      url: app.d.ceshiUrl + '/Api/Voucher/get_voucher',
-      method:'post',
-      data: {vid:vid,uid:uid},
-      header: {
-        'Content-Type':  'application/x-www-form-urlencoded'
-      },
-      success: function (res) {  
-        var status = res.data.status;
-        if(status==1){
-          wx.showToast({
-            title: '领取成功！',
-            duration: 2000
-          });
-        }else{
-          wx.showToast({
-            title: res.data.err,
-            duration: 2000
-          });
-        }
-        //endInitData
-      },
-      fail:function(e){
-        wx.showToast({
-          title: '网络异常！',
-          duration: 2000
-        });
-      },
-    });
-  },
-  onLoad:function(options){
+   
+  onLoad:function(){
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
+    that.setData({
+      userInfo: app.globalData.userInfo,
+    })
+    // 获取二维码
+    this.getQrcode();
+  },
+  getQrcode: function(){
+    var that = this;
     wx.request({
-      url: app.d.ceshiUrl + '/Api/Voucher/index',
-      method:'post',
-      data: {},
+      url: app.d.ceshiUrl + '/Api/DownloadQrcode/get_qrcode',
+      method: 'post',
+      data: {uid: app.d.userId,},
       header: {
-        'Content-Type':  'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      success: function (res) {  
-        var vou = res.data.vou;
+      success: function (res) {
+        console.log(res);
+        var picture = res.data.picture;
         that.setData({
-          vou:vou,
+          Qrcodeimg: picture,
         });
         //endInitData
       },
-      error:function(e){
+      error: function (e) {
         wx.showToast({
           title: '网络异常！',
           duration: 2000
