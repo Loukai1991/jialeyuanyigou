@@ -237,33 +237,33 @@ function array_sort($arr,$keys,$type='asc'){
 }
 
 function getRelativeTime($btime, $stype = 'lastmonth', &$starttime, &$endtime) {
-    if (!$btime) {
-        $btime = time();
-    }
-    switch ($stype) {
-        case 'lastmonth':
-            $starttime = mktime(0, 0, 0, date('m', $btime) - 1, 1, date("Y", $btime));
-            $endtime   = mktime(23, 59, 59, date('m', $btime), 00, date("Y", $btime));
-            break;
-        case 'thismonth':
-            $starttime = mktime(0, 0, 0, date("m", $btime), 1, date("Y", $btime));
-            $endtime   = mktime(23, 59, 59, date('m', $btime) + 1, 00, date("Y", $btime));
-            break;
-        case 'lastday':
-            $starttime = mktime(0, 0, 0, date('m', $btime), date('d', $btime) - 1, date('Y', $btime));
-            $endtime   = mktime(24, 0, 0, date('m', $btime), date('d', $btime) - 1, date('Y', $btime));
-            break;
-        case 'thisday':
-            $starttime = mktime(0, 0, 0, date('m', $btime), date('d', $btime), date('Y', $btime));
-            $endtime   = mktime(24, 0, 0, date('m', $btime), date('d', $btime), date('Y', $btime));
-            break;
-        case 'thisweek':
-            $starttime = mktime(0, 0, 0, date('m', $btime), date('d', $btime) - date("w", $btime) + 1, date("Y", $btime));
-            $endtime   = mktime(23, 59, 59, date('m', $btime), date('d', $btime) - date("w", $btime) + 7, date("Y", $btime));
-            break;
-        case 'lastweek':
-            $starttime = mktime(0, 0, 0, date('m', $btime), date('d', $btime) - date("w", $btime) + 1 - 7, date("Y", $btime));
-            $endtime   = mktime(23, 59, 59, date('m', $btime), date('d', $btime) - date("w", $btime) + 7 - 7, date("Y", $btime));
-            break;
-    }
+	if (!$btime) {
+		$btime = time();
+	}
+	switch ($stype) {
+		case 'lastmonth':
+			$starttime = mktime(0, 0, 0, date('m', $btime) - 1, 1, date("Y", $btime));
+			$endtime   = mktime(23, 59, 59, date('m', $btime), 00, date("Y", $btime));
+			break;
+		case 'thismonth':
+			$starttime = mktime(0, 0, 0, date("m", $btime), 1, date("Y", $btime));
+			$endtime   = mktime(23, 59, 59, date('m', $btime) + 1, 00, date("Y", $btime));
+			break;
+		case 'lastday':
+			$starttime = mktime(0, 0, 0, date('m', $btime), date('d', $btime) - 1, date('Y', $btime));
+			$endtime   = mktime(24, 0, 0, date('m', $btime), date('d', $btime) - 1, date('Y', $btime));
+			break;
+		case 'thisday':
+			$starttime = mktime(0, 0, 0, date('m', $btime), date('d', $btime), date('Y', $btime));
+			$endtime   = mktime(24, 0, 0, date('m', $btime), date('d', $btime), date('Y', $btime));
+			break;
+		case 'thisweek':
+			$starttime = mktime(0, 0, 0, date('m', $btime), date('d', $btime) - date("w", $btime) + 1, date("Y", $btime));
+			$endtime   = mktime(23, 59, 59, date('m', $btime), date('d', $btime) - date("w", $btime) + 7, date("Y", $btime));
+			break;
+		case 'lastweek':
+			$starttime = mktime(0, 0, 0, date('m', $btime), date('d', $btime) - date("w", $btime) + 1 - 7, date("Y", $btime));
+			$endtime   = mktime(23, 59, 59, date('m', $btime), date('d', $btime) - date("w", $btime) + 7 - 7, date("Y", $btime));
+			break;
+	}
 }

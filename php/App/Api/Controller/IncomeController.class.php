@@ -1,91 +1,19 @@
 <?php
 // 本类由系统自动生成，仅供测试用途
 namespace Api\Controller;
-use Home\Model\OrderModel;
+use Api\Model\OrderModel;
 use Think\Controller;
 class IncomeController extends PublicController {
-    const FIRSTPRIZE = '12%';  //一代
-    const SECONDEPRIZE = '8%';  //二代
-    const THIRDPRIZE = '5%';  //三代
+
     /**
      * 获取每日收入
-     * 静态奖励+动态奖励
+     * 返回：static静态奖励、dynamic动态奖励、total收入合计
      */
     public function getPerDayIncome(){
         $orderModel = new OrderModel();
-    
-        $param['oppenid']= I('oppenid',0,'intval');
+        $param['uid'] = I('uid', 0, 'intval');
         $income = $orderModel->getYestIncome($param);
-        echo json_encode(array('income'=>$income));
-        exit();
-        
-    }
-    //*****************************
-    //  新闻列表
-    //*****************************
-    public function index(){
-        $keyword=$_POST['keyword'];
-        $where = '1=1';
-        if ($keyword) {
-            $where .=' AND name LIKE "%'.$keyword.'%"';
-        }
-
-        $list = M('news')->where($where)->field('id,cid,digest,name,photo,addtime,source')->order('sort desc,addtime desc')->limit(8)->select();
-        foreach ($list as $k => $v) {
-            $list[$k]['photo']=__DATAURL__.$v['photo'];
-            $list[$k]['cname'] = M('news_cat')->where('id='.intval($v['cid']))->getField('name');
-            $list[$k]['addtime']=date('Y-m-d',$v['addtime']);
-        }
-        //json加密输出
-        //dump($json);
-        echo json_encode(array('list'=>$list));
-        exit();
+        $this->ajaxReturn(array('income'=>$income));
     }
 
-    //*****************************
-    //  新闻列表  加载更多
-    //*****************************
-    public function getlist(){
-        $page = intval($_REQUEST['page']);
-        if (!$page) {
-            $page = 2;
-        }
-        $limit = $page*8-8;
-
-        $list = M('news')->where($where)->field('id,cid,digest,name,photo,addtime,source')->order('sort desc,addtime desc')->limit($limit.',8')->select();
-        foreach ($list as $k => $v) {
-            $list[$k]['photo']=__DATAURL__.$v['photo'];
-            $list[$k]['cname'] = M('news_cat')->where('id='.intval($v['cid']))->getField('name');
-            $list[$k]['addtime']=date('Y-m-d',$v['addtime']);
-        }
-        //json加密输出
-        //dump($json);
-        echo json_encode(array('list'=>$list));
-        exit();
-    }
-
-    //*****************************
-    //  新闻详情
-    //*****************************
-    public function detail(){
-        $newid=intval($_REQUEST['news_id']);
-        $detail=M('news')->where('id='.intval($newid))->find();
-        if (!$detail) {
-            echo json_encode(array('status'=>0,'err'=>'没有找到相关信息.'));
-            exit();
-        }
-
-        $up = array();
-        $up['click'] = intval($detail['click'])+1;
-        M('news')->where('id='.intval($newid))->save($up);
-
-        $content = str_replace('/minipetmrschool/Data/', __DATAURL__, $detail['content']);
-        $detail['content']=html_entity_decode($content, ENT_QUOTES, "utf-8");
-
-        $detail['addtime'] = date("Y-m-d",$detail['addtime']);
-
-        echo json_encode(array('status'=>1,'info'=>$detail));
-        exit();
-    }
-    
 }

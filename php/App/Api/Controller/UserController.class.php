@@ -15,7 +15,7 @@ class UserController extends PublicController {
 	public function getorder(){
 		$uid = intval($_REQUEST['userId']);
 		if (!$uid) {
-			echo json_encode(array('status'=>0,'err'=>'非法操作.'));
+			echo json_encode(array('status'=>1,'err'=>'非法操作.'));
 			exit();
 		}
 
@@ -24,7 +24,19 @@ class UserController extends PublicController {
 		$order['rec_num'] = intval(M('order')->where('uid='.intval($uid).' AND status=30 AND del=0 AND back="0"')->getField('COUNT(id)'));
 		$order['finish_num'] = intval(M('order')->where('uid='.intval($uid).' AND status>30 AND del=0 AND back="0"')->getField('COUNT(id)'));
 		$order['refund_num'] = intval(M('order')->where('uid='.intval($uid).' AND back>"0"')->getField('COUNT(id)'));
-		echo json_encode(array('status'=>1,'orderInfo'=>$order));
+		//判断是否是vip//累计消费大于660
+		$vip = false;
+		$orders = M('order')->where('uid='.intval($uid).' AND status=10 AND del=0')->field('amount,product_num')->select();
+		if(!empty($orders)){
+			foreach($orders as &$one){
+				$one['sum'] = $one['amount'] * $one['product_num'];
+				$sum+=$one['sum'];
+			}
+			if($sum > 660){
+				$vip = true;
+			}
+		}
+		echo json_encode(array('status'=>1,'orderInfo'=>$order,'vip'=>$vip));
 		exit();
 	}
 

@@ -8,9 +8,6 @@
 
 5、App/Api/Controller/WxPayController.class.php 50行修改链接
 
-6. /var/www/html/App/Api/Controller/UploadImgController.class.php 是配合小程序端pages/upload/upload做
-图片上传功能，测试用，亲测可行
-
 后台登录的用户名是admin，密码是123456
 
 小程序源码：https://github.com/hxxy2003/wechat_shop_xcx

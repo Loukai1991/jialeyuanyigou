@@ -189,6 +189,7 @@ class ShoppingController extends PublicController {
 				exit;
 			}
 			$res = $shpp->where('id='.intval($cart_info['id']))->save($data);
+			$cart_id = $cart_info['id'];
 		}else{
 			$data['pid']=intval($pid);
 			$data['num']=intval($num);
@@ -203,10 +204,11 @@ class ShoppingController extends PublicController {
 			$data['price'] = $check_info['price_yh'];
 
 			$res=$shpp->add($data);
+			$cart_id = $res;
 		}
 
 		if($res){
-			echo json_encode(array('status'=>1,'cart_id'=>$res)); //该商品已成功加入您的购物车
+			echo json_encode(array('status'=>1,'cart_id'=>$cart_id)); //该商品已成功加入您的购物车
 			exit;
 		}else{
 			echo json_encode(array('status'=>0,'err'=>'加入失败.'));

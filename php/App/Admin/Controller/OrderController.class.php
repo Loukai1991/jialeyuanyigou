@@ -21,17 +21,18 @@ class OrderController extends PublicController{
 	* 获取、查询所有订单数据
 	*/
 	public function index(){
+
 		//搜索
 		//获取商家id
-		if (intval($_SESSION['admininfo']['qx'])!=4) {
-			$shop_id = intval(M('adminuser')->where('id='.intval($_SESSION['admininfo']['id']))->getField('shop_id'));
-			if ($shop_id==0) {
-				$this->error('非法操作.');
-			}
-		}else{
-			$shop_id = intval($_REQUEST['shop_id']);
-		}
-		
+
+		// if (intval($_SESSION['admininfo']['qx'])!=4) {
+		// 	$shop_id = intval(M('adminuser')->where('id='.intval($_SESSION['admininfo']['id']))->getField('shop_id'));
+		// 	if ($shop_id==0) {
+		// 		$this->error('非法操作.');
+		// 	}
+		// }else{
+		// 	$shop_id = intval($_REQUEST['shop_id']);
+		// }
 		$pay_type = trim($_REQUEST['pay_type']);//支付类型
 		$pay_status = intval($_REQUEST['pay_status']); //订单状态
 		$start_time = intval(strtotime($_REQUEST['start_time'])); //订单状态
@@ -118,8 +119,14 @@ class OrderController extends PublicController{
 		$order_list = $this->order->where($where)->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 		foreach ($order_list as $k => $v) {
 			$order_list[$k]['u_name'] = M('user')->where('id='.intval($v['uid']))->getField('name');
+			$pid =  M('user')->where('id='.intval($v['uid']))->getField('pid');
+			$p_name = '---';
+			if($pid && $pid != 1){
+				$p_name = M('user')->where('id='.$pid)->getField('name');
+			}
+			$order_list[$k]['p_name'] = $p_name;
 		}
-		//echo $where;
+
 		$this->assign('order_list',$order_list);// 赋值数据集
 		$this->assign('page',$show);// 赋值分页输出
 		$this->assign('admin_qx',$_SESSION['admininfo']['qx']);//后台用户权限，目前设置为超级管理员权限

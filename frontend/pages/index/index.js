@@ -9,19 +9,15 @@ Page({
     duration: 1000,
     circular: true,
     productData: [],
-    proCat:[],
     page: 2,
     index: 2,
-    brand:[],
     // 滑动
     imgUrl: [],
     kbs:[],
     lastcat:[],
-    course:[]
   },
 //跳转商品列表页   
 listdetail:function(e){
-    console.log(e.currentTarget.dataset.title)
     wx.navigateTo({
       url: '../listdetail/listdetail?title='+e.currentTarget.dataset.title,
       success: function(res){
@@ -164,6 +160,25 @@ getMore:function(e){
   },
 
   onLoad: function (options) {
+    console.log('uid是' + app.d.userId)
+    console.log('pid来了');
+    var pid = options.uid;
+    console.log(pid);
+    if(pid){
+      wx.setStorageSync('pid',pid);
+      app.globalData.pid = pid;
+      wx.request({
+        url: app.d.ceshiUrl + '/Api/Index/writepid',
+        method: 'post',
+        data: { pid: pid, uid: app.d.userId },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (res) {
+          console.log(res)
+        }
+      })
+    }
     var that = this;
     wx.request({
       url: app.d.ceshiUrl + '/Api/Index/index',
@@ -174,17 +189,10 @@ getMore:function(e){
       },
       success: function (res) {  
         var ggtop = res.data.ggtop;
-        var procat = res.data.procat;
         var prolist = res.data.prolist;
-        var brand = res.data.brand;
-        var course = res.data.course;
-        //that.initProductData(data);
         that.setData({
           imgUrls:ggtop,
-          proCat:procat,
           productData:prolist,
-          brand: brand,
-          course: course
         });
         //endInitData
       },
@@ -198,9 +206,10 @@ getMore:function(e){
 
   },
   onShareAppMessage: function () {
+    var userId = app.globalData.userInfo.id
     return {
-      title: '宠物美容学校',
-      path: '/pages/index/index',
+      title: '家乐园易购',
+      path: '/pages/index/index?userId='+userId,
       success: function(res) {
         // 分享成功
       },

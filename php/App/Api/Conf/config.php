@@ -3,7 +3,7 @@
 header("Content-Type:text/html; charset=utf-8");
 error_reporting(0);
 
-define('SELF_ROOT','https://22688155.shrlc.org/');
+define('SELF_ROOT','https://qqiqq.xyz/');
 //define('SELF_ROOT','/');
 
 $urkn= SELF_ROOT."Data/app/";
@@ -40,14 +40,14 @@ return array(
     'weixin'=>array(
 
 
-        'appid' =>'wx8c0045964f704217',			//微信appid
-        'secret'=>'21f1d95768e6860afe9e95e67e3df412', //微信secret
+        'appid' =>'wx9488e42a886452bd',			//微信appid
+        'secret'=>'cbaa581caccfc2d89d6041f4b0873a2f', //微信secret
 
-        'mchid' => '1488384682',
+        'mchid' => '1509150021',
         'key' => '9850489220adb7373fd48844640864d6',
 
         //这里是异步通知页面url，提交到项目的Pay控制器的notifyurl方法；
-        'notify_url'=>'https://22688155.shrlc.org/index.php/Api/Wxpay/notify',
+        'notify_url'=>'https://qqiqq.xyz/index.php/Api/Wxpay/notify',
 
     ),
 );

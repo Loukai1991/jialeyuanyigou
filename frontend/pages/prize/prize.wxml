@@ -1,0 +1,18 @@
+<view class="page">
+<view class="container">
+<text class="how" wx:if="{{tuijianren}}">我的推荐人: {{tuijianren}} </text>
+<text class="how">返点奖励: {{static}} 元</text>
+<text class="how">推荐奖励: {{dynamic}} 元</text>
+<text class="how">收入合计: {{total}} 元</text>
+<view class="line"></view>
+<text class="how">我的粉丝 ({{num}}人):</text>
+<view style="float:none;width:100%;flex-direction:row-reverse;zoom:1;overflow:hidden;">
+    <view wx:for="{{fensilist}}" class="canyushang">
+      <text class='fensi'>{{item.name}}</text>
+    </view>
+</view>
+</view>
+</view>	
+
+
+

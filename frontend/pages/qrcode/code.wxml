@@ -1,6 +1,7 @@
-<view>
-{{Qrcodeimg}}    
-</view>	
+<view style="width:750rpx;height:750rpx;">  
+  <image src="{{Qrcodeimg}}" class="image" style='width:100%;height:100%;'  />
+</view>
+<button bindtap="saveImgToPhotosAlbumTap" style='color:red'>保存二维码到相册，分享赢奖励</button>
 
 
 

@@ -108,7 +108,6 @@ onLoad: function (options) {
 lookdetail: function (e) {
     console.log(e)
     var lookid = e.currentTarget.dataset;
-    console.log(e.currentTarget.dataset);
     wx.navigateTo({
       url: "../index/detail?id=" + lookid.id
     })

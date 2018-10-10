@@ -34,11 +34,12 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="text-c">
-        <input type="text" class="input-text" style="width:250px" placeholder="用户名" id="name" value="{$name}">
-        <input type="text" class="input-text" style="width:250px" placeholder="手机号码" id="tel" value="{$tel}">
+        <input type="text" class="input-text" style="width:250px" placeholder="找ta" id="name" value="{$name}"> 或者 
+        <input type="text" class="input-text" style="width:250px" placeholder="找ta的粉丝们 (请输入用户ID)" id="fensi" value="{$fensi}">
         <button type="button" class="btn btn-success" id="" name="" onclick="product_option(0);"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
     </div>
     <br>
+        	<if condition="$p_name neq ''"><p style="color:red;font-size: 35px;">这下面都是{$p_name}的粉丝：</p></if>
     <table class="table table-border table-bordered table-bg">
         <thead>
 
@@ -47,9 +48,10 @@
             <th width="100">头像</th>
             <th width="150">账户名</th>
             <th width="130">注册时间</th>
-            <th width="150">手机号码</th>
-            <th width="100">状态</th>
-            <th width="100">操作</th>
+            <!-- <th width="150">手机号码</th> -->
+            <!-- <th width="100">状态</th> -->
+            <th width="100">我的推荐人</th>
+            <!-- <th width="100">操作</th> -->
         </tr>
         </thead>
 
@@ -62,12 +64,13 @@
                 <td><img src="{$v.photo}" width="80px" height="80px" /></td>
                 <td>{$v.name}</td>
                 <td>{$v.addtime}</td>
-                <td>{$v.tel}</td>
-                <td><if condition="$v.del neq 0"><label style="color:red;">已禁用</label><else /><label style="color:green;">正常</label></if></td>
-                <td class="obj_1">
+                <!-- <td>{$v.tel}</td> -->
+                <!-- <td><if condition="$v.del neq 0"><label style="color:red;">已禁用</label><else /><label style="color:green;">正常</label></if></td> -->
+                <td>{$v.p_name}</td>
+               <!--  <td class="obj_1">
                     <!-- <a href="{:U('User/add')}?id={$v.id}">修改</a> -->
-                    <a onclick='del_id_urls({$v.id},{$page})'><if condition="$v.del neq 0"><label style="color:green;">恢复</label><else />禁用</if></a>
-                </td>
+                    <!--<a onclick='del_id_urls({$v.id},{$page})'><if condition="$v.del neq 0"><label style="color:green;">恢复</label><else />禁用</if></a>*/
+                </td> -->
             </tr>
         </volist>
         <!-- 遍历 -->
@@ -94,7 +97,7 @@
     function product_option(page){
         var obj={
             "name":$("#name").val(),
-            "tel":$("#tel").val(),
+            "fensi":$("#fensi").val(),
         }
         var url='?page='+page;
         $.each(obj,function(a,b){

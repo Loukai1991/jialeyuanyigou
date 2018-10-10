@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/product/detail",
     "pages/search/search",
+    "pages/welcome/index",
     "pages/user/user",
     "pages/upload/upload",
     "pages/user/dingdan",
@@ -16,15 +17,14 @@
     "pages/address/user-address/user-address",
     "pages/category/index",     
     "pages/ritual/ritual",   
-    "pages/qrcode/code",
-    "pages/shop_store/shop_store"
-
-
-      ],
+    "pages/prize/prize",
+    "pages/shop_store/shop_store",
+    "pages/qrcode/code"
+    ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#008842",
-    "navigationBarTitleText": "公鸡下蛋商城",
+    "navigationBarTitleText": "家乐园易购",
     "navigationBarTextStyle":"white"
 
   },

@@ -16,7 +16,6 @@ bindMinus: function(e) {
     if (num > 1) {
       num --;
     }
-    console.log(num);
     var cart_id = e.currentTarget.dataset.cartid;
     wx.request({
       url: app.d.ceshiUrl + '/Api/Shopping/up_cart',
@@ -68,7 +67,6 @@ bindPlus: function(e) {
     var num = that.data.carts[index].num;
     // 自增
     num ++;
-    console.log(num);
     var cart_id = e.currentTarget.dataset.cartid;
     wx.request({
       url: app.d.ceshiUrl + '/Api/Shopping/up_cart',
@@ -265,5 +263,17 @@ removeShopCard:function(e){
       },
     });
   },
-
+  onShareAppMessage: function () {
+    var userId = app.globalData.userInfo.id
+    return {
+      title: '家乐园易购',
+      path: '/pages/index/index?userId=' + userId,
+      success: function (res) {
+        // 分享成功
+      },
+      fail: function (res) {
+        // 分享失败
+      }
+    }
+  }
 })

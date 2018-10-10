@@ -70,19 +70,18 @@
     <span class="fl_r c9 font_12 l_h20" hover-class="none"> ></span>
   </navigator>
 </view>
-<view class="qbdd mt110">
-   <navigator url="../rituall/rituall">
-    <span class="font_14 c3">我的推荐</span>
-    <span class="fl_r c9 font_12 l_h20" hover-class="none"> ></span>
-  </navigator>
-</view>
-
 <!-- <view class="qbdd mt110">
    <navigator url="../upload/upload">
     <span class="font_14 c3">上传图片</span>
     <span class="fl_r c9 font_12 l_h20" hover-class="none"> ></span>
   </navigator>
 </view> -->
+<view class="qbdd mt110">
+   <navigator url="../prize/prize">
+    <span class="font_14 c3">我的奖励<span wx:if="{{vip}}" style="color:red"> (恭喜你已成为vip会员) </span></span>
+    <span class="fl_r c9 font_12 l_h20" hover-class="none"> ></span>
+  </navigator>
+</view>
 <view class="qbdd mt110">
   <contact-button>
   </contact-button>

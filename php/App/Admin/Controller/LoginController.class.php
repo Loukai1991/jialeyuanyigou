@@ -7,6 +7,7 @@ class LoginController extends PublicController{
 	//
 	//********************
 	public function index(){
+
 		if(IS_POST){
 			$username=$_POST['username'];
 			$admininfo=M('adminuser')->where("name='$username' AND del<1")->find();

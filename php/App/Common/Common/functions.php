@@ -12,29 +12,6 @@
 /**
  * Think 系统函数库
  */
-// 建立本地目录
-function mDir($dirName)
-{
-    $dirName = formatPath($dirName);
-    $dirNames = explode('/', $dirName);
-    $total = count($dirNames) ;
-    $temp = '';
-    for($i = 0; $i < $total; $i++) {
-        $temp .= $dirNames[$i] . '/';
-        if (!is_dir($temp)) {
-            $oldmask = umask(0);
-            @mkdir($temp, 0777);
-            umask($oldmask);
-        }
-    }
-}
-//格式化目录路径
-function formatPath($path)
-{
-    $path = str_replace("\\", "/", $path);
-    // if (substr($path,-1) != "/") $path .= "/";
-    return $path;
-}
 
 /**
  * 获取和设置配置参数 支持批量定义

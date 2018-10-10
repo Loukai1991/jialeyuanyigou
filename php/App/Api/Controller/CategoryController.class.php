@@ -7,12 +7,24 @@ class CategoryController extends PublicController {
 	// 产品分类
 	//***************************
     public function index(){
-    	$list = M('category')->where('tid=1')->field('id,tid,name')->select();
-        $catList = M('category')->where('tid='.intval($list[0]['id']))->field('id,name,bz_1')->select();
-        foreach ($catList as $k => $v) {
-            $catList[$k]['bz_1'] = __DATAURL__.$v['bz_1'];
-        }
+    	//TODo 应付审核，暂时先把下面代码注释掉。等审核通过后，恢复
+    //  	$list = M('category')->where('tid=1')->field('id,tid,name')->select();
+    //      //TODo 审核通过后，删除下面的临时代码，作用只是为了展示临时商品分类
+    //      $tmp = end($list);
+    //      $tmp[0] = $tmp;
+    //      unset($list);
+    //      $list = $tmp;
+ 		 // $catList = M('category')->where('tid='.intval($list[0]['id']))->field('id,name,bz_1')->select();
+    //      foreach ($catList as $k => $v) {
+    //          $catList[$k]['bz_1'] = __DATAURL__.$v['bz_1'];
+    //      }
 
+        //上线以后删除上面的代码，恢复下面的代码：
+       $list = M('category')->where('tid=1')->field('id,tid,name')->select();
+       $catList = M('category')->where('tid='.intval($list[0]['id']))->field('id,name,bz_1')->select();
+        foreach ($catList as $k => $v) {
+           $catList[$k]['bz_1'] = __DATAURL__.$v['bz_1'];
+       }
     	//json加密输出
 		//dump($json);
 		echo json_encode(array('status'=>1,'list'=>$list,'catList'=>$catList));

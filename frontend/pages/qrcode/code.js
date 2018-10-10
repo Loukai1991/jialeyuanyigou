@@ -17,16 +17,18 @@ Page({
   },
   getQrcode: function(){
     var that = this;
+    console.log('uid' + app.d.userId);
     wx.request({
-      url: app.d.ceshiUrl + '/Api/DownloadQrcode/get_qrcode',
+      url: app.d.ceshiUrl + '/Api/Qrcode/getqrcode',
       method: 'post',
       data: {uid: app.d.userId,},
       header: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       success: function (res) {
+        console.log('qrcode');
         console.log(res);
-        var picture = res.data.picture;
+        var picture = res.data.src;
         that.setData({
           Qrcodeimg: picture,
         });
@@ -39,6 +41,32 @@ Page({
         });
       },
     });
+  },
+  saveImgToPhotosAlbumTap: function () {
+    wx.downloadFile({
+      url: this.data.Qrcodeimg,
+      success: function (res) {
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success: function (res) {
+            wx.showToast({
+              title: '保存成功',
+              icon: 'success',
+              duration: 2000
+            })  
+          },
+          fail: function (res) {
+            wx.showToast({
+              title: '保存失败',
+              icon: 'success',
+              duration: 2000
+            })  
+          }
+        })
+      },
+      fail: function () {
+      }
+    })
   },
   onReady:function(){
     // 页面渲染完成

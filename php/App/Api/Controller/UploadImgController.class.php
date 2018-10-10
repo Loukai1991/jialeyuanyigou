@@ -4,7 +4,7 @@
  *
  * 模块：
  *
- * 功能：
+ * 功能：做微信小程序上传图片测试
  *
  * @copyright Copyright (c) 2015 – www.hongshu.com
  * @author    : Administrator
@@ -13,7 +13,7 @@
 
 namespace Api\Controller;
 
-class UploadImg extends PublicController
+class UploadImgController extends PublicController
 {
     public function uploadimg(){
    
@@ -34,7 +34,8 @@ class UploadImg extends PublicController
             $result['msg'] = $upload->getError();
             $this->ajaxReturn($result);
         }
-        echo json_encode(array('status'=>1,'msg'=>'上传成功','data'=>$info));
+        $imgurl = 'https://22688155.shrlc.org/Data/UploadFiles/fromminiprogram/'.$info['file']['savename'];
+        echo json_encode(array('status'=>1,'msg'=>'上传成功','url'=>$imgurl));
         exit();
     
     }

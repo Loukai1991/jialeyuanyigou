@@ -1,13 +1,13 @@
 // app.js
 App({
   d: {
-    hostUrl: 'https://22688155.shrlc.org/index.php',
+    hostUrl: 'https://qqiqq.xyz/index.php',
     hostImg: 'http://img.ynjmzb.net',
     hostVideo: 'http://zhubaotong-file.oss-cn-beijing.aliyuncs.com',
-    userId: 1,
+    userId: 0,
     appId:"",
     appKey:"",
-    ceshiUrl:'https://22688155.shrlc.org/index.php',
+    ceshiUrl:'https://qqiqq.xyz/index.php',
   },
   onLaunch: function () {
     //调用API从本地缓存中获取数据
@@ -115,6 +115,7 @@ App({
           return false;
         }
         that.d.userId = userId;
+        console.log('w'+that.d.userId);
       },
       fail:function(e){
         wx.showToast({
@@ -140,7 +141,6 @@ App({
   onPullDownRefresh: function (){
     wx.stopPullDownRefresh();
   }
-
 });
 
 

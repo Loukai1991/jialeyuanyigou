@@ -6,8 +6,10 @@ class IndexController extends PublicController {
 	//  首页数据接口
 	//***************************
     public function index(){
+        //如果接收到uid,说明是通过扫描别人的二维码进来的。那么就将这个用户的自己的uid对应的父uid写进数据库，判断这个uid是不是跟自己的uid一致
+
     	//如果缓存首页没有数据，那么就读取数据库
-    	/***********获取首页顶部轮播图************/
+//    	/***********获取首页顶部轮播图************/
     	$ggtop=M('guanggao')->order('sort desc,id asc')->field('id,name,photo')->limit(10)->select();
 		foreach ($ggtop as $k => $v) {
 			$ggtop[$k]['photo']=__DATAURL__.$v['photo'];
@@ -18,18 +20,18 @@ class IndexController extends PublicController {
         //======================
         //首页推荐品牌 20个
         //======================
-        $brand = M('brand')->where('1=1')->field('id,name,photo')->limit(20)->select();
-        foreach ($brand as $k => $v) {
-            $brand[$k]['photo'] = __DATAURL__.$v['photo'];
-        }
+//        $brand = M('brand')->where('1=1')->field('id,name,photo')->limit(20)->select();
+//        foreach ($brand as $k => $v) {
+//            $brand[$k]['photo'] = __DATAURL__.$v['photo'];
+//        }
 
         //======================
         //首页培训课程
         //======================
-        $course = M('course')->where('del=0')->order('id desc')->field('id,title,intro,photo')->select();
-        foreach ($course as $k => $v) {
-            $course[$k]['photo'] = __DATAURL__.$v['photo'];
-        }
+//        $course = M('course')->where('del=0')->order('id desc')->field('id,title,intro,photo')->select();
+//        foreach ($course as $k => $v) {
+//            $course[$k]['photo'] = __DATAURL__.$v['photo'];
+//        }
 
     	//======================
     	//首页推荐产品
@@ -42,29 +44,30 @@ class IndexController extends PublicController {
         //======================
         //首页分类 自己组建数组
         //======================
-        $indeximg = M('indeximg')->where('1=1')->order('id asc')->field('photo')->select();
-        $procat = array();
-        $procat[0]['name'] = '新闻资讯';
-        $procat[0]['imgs'] = __DATAURL__.$indeximg[0]['photo'];
-        $procat[0]['link'] = 'other';
-        $procat[0]['ptype'] = 'news';
+//        $indeximg = M('indeximg')->where('1=1')->order('id asc')->field('photo')->select();
+//        $procat = array();
+//        $procat[0]['name'] = '新闻资讯';
+//        $procat[0]['imgs'] = __DATAURL__.$indeximg[0]['photo'];
+//        $procat[0]['link'] = 'other';
+//        $procat[0]['ptype'] = 'news';
+//
+//        $procat[1]['name'] = '教学优势';
+//        $procat[1]['imgs'] = __DATAURL__.$indeximg[1]['photo'];
+//        $procat[1]['link'] = 'other';
+//        $procat[1]['ptype'] = 'jxys';
+//
+//        $procat[2]['name'] = '学员风采';
+//        $procat[2]['imgs'] = __DATAURL__.$indeximg[2]['photo'];
+//        $procat[2]['link'] = 'other';
+//        $procat[2]['ptype'] = 'xyfc';
+//
+//        $procat[3]['name'] = '关于我们';
+//        $procat[3]['imgs'] = __DATAURL__.$indeximg[3]['photo'];
+//        $procat[3]['link'] = 'other';
+//        $procat[3]['ptype'] = 'gywm';
 
-        $procat[1]['name'] = '教学优势';
-        $procat[1]['imgs'] = __DATAURL__.$indeximg[1]['photo'];
-        $procat[1]['link'] = 'other';
-        $procat[1]['ptype'] = 'jxys';
-
-        $procat[2]['name'] = '学员风采';
-        $procat[2]['imgs'] = __DATAURL__.$indeximg[2]['photo'];
-        $procat[2]['link'] = 'other';
-        $procat[2]['ptype'] = 'xyfc';
-
-        $procat[3]['name'] = '关于我们';
-        $procat[3]['imgs'] = __DATAURL__.$indeximg[3]['photo'];
-        $procat[3]['link'] = 'other';
-        $procat[3]['ptype'] = 'gywm';
-
-    	echo json_encode(array('ggtop'=>$ggtop,'procat'=>$procat,'prolist'=>$pro_list,'brand'=>$brand,'course'=>$course));
+//    	echo json_encode(array('ggtop'=>$ggtop,'procat'=>$procat,'prolist'=>$pro_list,'brand'=>$brand,'course'=>$course));
+        echo json_encode(array('prolist'=>$pro_list,'ggtop'=>$ggtop));
     	exit();
     }
 
@@ -96,4 +99,35 @@ class IndexController extends PublicController {
         echo $str;
     }
 
+    /**
+     * 记录推荐人
+     */
+    public function writepid(){
+        $uid = I('uid',0,'intval');
+        $pid = I('pid',0,'intval');
+
+        if($uid && $pid){
+            if($uid == $pid){
+                $this->ajaxReturn(['code'=>0,'msg'=>'推荐人不合法']);
+            }
+            if($uid != $pid){
+                $userinfo = M('user')->where(['id'=>$uid])->getField('pid');
+
+                if(false === $userinfo){
+                    $this->ajaxReturn(['code'=>0,'msg'=>'网络错误']);
+                }
+                if(!empty($userinfo['pid'])){
+                    $this->ajaxReturn(['code'=>0,'msg'=>'pid无法修改']);
+                }
+
+                $set = M('user')->where(['id'=>$uid])->setField('pid',$pid);
+                if(false===$set){
+                    $this->ajaxReturn(['code'=>0,'msg'=>'网络错误']);
+                }else{
+                    $this->ajaxReturn(['code'=>1,'msg'=>'设置成功']);
+                }
+
+            }
+        }
+    }
 }

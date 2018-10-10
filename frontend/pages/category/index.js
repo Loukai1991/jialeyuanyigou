@@ -40,8 +40,7 @@ Page({
                 }
      that.setData({
             currType: 2
-        });    
-      console.log(list)
+        });
 
             },
             error:function(e){
@@ -63,7 +62,6 @@ Page({
         that.setData({
             currType: currType
         });
-        console.log(currType);
         wx.request({
             url: app.d.ceshiUrl + '/Api/Category/getcat',
             method:'post',
@@ -108,5 +106,19 @@ Page({
                 }
             });
         }
-    }
+    },
+  // onShareAppMessage: function () {
+  //   var userId = app.globalData.userInfo.id
+  //   return {
+  //     title: '家乐园易购',
+  //     path: '/pages/index/index?userId=' + userId,
+  //     success: function (res) {
+  //       // 分享成功
+  //     },
+  //     fail: function (res) {
+  //       // 分享失败
+  //     }
+  //   }
+  // }
+  
 })
